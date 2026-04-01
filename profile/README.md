@@ -39,14 +39,27 @@ Our researchers and engineers bring together rigorous academic foundations from 
 
 ---
 
+## ✦ Careers
+
+We are actively expanding our research team and seeking exceptional **Quantitative Researchers** to join us. You will work alongside top-tier talent to develop and deploy cutting-edge trading models. 
+
+**What we look for:**
+* Exceptionally strong background in Mathematics, Physics, Computer Science, or related quantitative fields.
+* Proficiency in Rust or Python, with a deep understanding of data structures and algorithms.
+* Experience in applying machine learning to large datasets.
+
+*If you share our belief that AI can replace all human traders—join us, and let's turn the world upside down.*
+
+---
+
 ## ✦ Institutional Partnerships
 
 We actively collaborate with leading liquidity providers, exchanges, and technology partners. If you represent an institutional entity or are interested in exploring strategic synergies, we invite you to connect with our team.
 
-📥 **[Contact Us](mailto:contact@albertmaxwell.com)**
+📥 **[Contact Us](mailto:compliance.enlitech@gmail.com)**
 
 <br/>
 
 <div align="center">
-  <small>© 2024 Albert Maxwell Technologies. All rights reserved.</small>
+  <small>© 2024-2026 Albert Maxwell Technologies. All rights reserved.</small>
 </div>

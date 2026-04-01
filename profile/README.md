@@ -48,7 +48,7 @@ We are actively expanding our research team and seeking exceptional **Quantitati
 * Proficiency in Rust or Python, with a deep understanding of data structures and algorithms.
 * Experience in applying machine learning to large datasets.
 
-*If you share our belief that AI can replace all human traders—join us, and let's turn the world upside down.*
+**If you share our belief that AI can replace all human traders—join us, and let's turn the world upside down!**
 
 ---
 

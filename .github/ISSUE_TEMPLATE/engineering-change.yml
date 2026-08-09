@@ -1,0 +1,81 @@
+name: Engineering or lifecycle change
+description: Propose a code, data, contract, repository, release, migration, or retirement change.
+title: "[change] "
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Read the [engineering contract](https://github.com/Albert-Maxwell/.github/blob/main/ENGINEERING.md). Complete every field; use `None — <reason>` only when a section truly does not apply.
+  - type: textarea
+    id: current
+    attributes:
+      label: Current behavior and owner
+      description: Describe the behavior today, its owning repository/team/person, and the problem demonstrated by current evidence.
+      placeholder: Current behavior, owner, consumers, and evidence...
+    validations:
+      required: true
+  - type: textarea
+    id: affected
+    attributes:
+      label: Affected code, data, and contracts
+      description: List repositories, modules, APIs, persisted formats/schemas, deployments, artifacts, and consumers affected.
+      placeholder: Code / data / contracts / consumers...
+    validations:
+      required: true
+  - type: textarea
+    id: obsolete
+    attributes:
+      label: Obsolete paths to delete
+      description: Name old code, aliases, fallbacks, workflows, artifacts, or duplicated paths that this change removes, and when. Explain why none exist if not applicable.
+      placeholder: Paths and deletion point, or None — reason...
+    validations:
+      required: true
+  - type: textarea
+    id: reuse
+    attributes:
+      label: Reuse and library decision
+      description: State what existing owner, maintained library, or current dependency will be reused. If adding or extracting a library, name its real consumers and release mechanism.
+      placeholder: Reuse choice and evidence; extraction consumers/release; or None — reason...
+    validations:
+      required: true
+  - type: textarea
+    id: dependency_order
+    attributes:
+      label: Cross-repository dependency order
+      description: For a breaking contract, list owner-first landing/release, consumer migration, verification, and old-contract removal order. Explain why no cross-repository contract changes otherwise.
+      placeholder: 1. Owning contract... 2. Consumer... 3. Remove old contract... or None — reason...
+    validations:
+      required: true
+  - type: textarea
+    id: data
+    attributes:
+      label: Data preservation and migration
+      description: State the data/schema owner, numbered migration, retention/recovery plan, and any deletion, overwrite, normalization, or rewrite. Destructive changes require explicit authorization.
+      placeholder: Owner, preserved evidence/data, migration and recovery, destructive authorization or None — reason...
+    validations:
+      required: true
+  - type: textarea
+    id: rollout
+    attributes:
+      label: Rollout and verification
+      description: Give end-to-end rollout steps, success evidence, rollback/recovery, and how current consumers and deployments will be checked.
+      placeholder: Rollout, tests/observability/evidence, rollback...
+    validations:
+      required: true
+  - type: textarea
+    id: retirement
+    attributes:
+      label: Interim-state retirement
+      description: Name the owner, tracking issue, target date if known, and exact condition for removing every temporary compatibility or rollout state.
+      placeholder: Owner, issue, retirement condition/date, or None — no interim state because...
+    validations:
+      required: true
+  - type: checkboxes
+    id: confirmation
+    attributes:
+      label: Contract confirmation
+      options:
+        - label: I have identified the authoritative repository-specific contracts and reconciled this proposal with them.
+          required: true
+        - label: This proposal leaves an end-to-end working system at each rollout stage.
+          required: true

@@ -1,0 +1,13 @@
+# Canonical organization policy
+/README.md @super-dainiu
+/ENGINEERING.md @super-dainiu
+/REPOSITORY_CREATION.md @super-dainiu
+/RETIREMENT.md @super-dainiu
+
+# Shared contribution policy and templates
+/.github/ISSUE_TEMPLATE/ @super-dainiu
+/.github/pull_request_template.md @super-dainiu
+/.github/CODEOWNERS @super-dainiu
+
+# Repository lifecycle metadata
+/lifecycle/ @super-dainiu

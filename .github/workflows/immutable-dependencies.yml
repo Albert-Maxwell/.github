@@ -1,0 +1,40 @@
+name: Organization immutable dependencies
+
+on:
+  workflow_call:
+    inputs:
+      runner:
+        description: "GitHub-hosted Ubuntu or approved Linux runner label."
+        required: false
+        default: ubuntu-latest
+        type: string
+
+permissions:
+  contents: read
+
+jobs:
+  immutable-dependencies:
+    name: immutable-dependencies
+    runs-on: ${{ inputs.runner }}
+    timeout-minutes: 5
+    steps:
+      - name: Check out repository under test
+        uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with:
+          path: consumer-repository
+          persist-credentials: false
+
+      - name: Check out the immutable-dependency gate beside this workflow
+        uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with:
+          repository: ${{ job.workflow_repository }}
+          ref: ${{ job.workflow_sha }}
+          path: .organization-immutable-dependencies
+          persist-credentials: false
+
+      - name: Reject mutable production and release dependencies
+        shell: bash
+        run: >-
+          python3
+          .organization-immutable-dependencies/immutable-dependencies/check-immutable-dependencies.py
+          --repository "$GITHUB_WORKSPACE/consumer-repository"

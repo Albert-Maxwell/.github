@@ -1,0 +1,69 @@
+name: Lifecycle registry hygiene
+
+on:
+  workflow_call:
+  pull_request:
+  push:
+    branches: [main]
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: lifecycle-registry-${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  validate:
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    env:
+      GOVERNANCE_ROOT: ${{ github.repository == 'Albert-Maxwell/.github' && '.' || '.org-governance' }}
+    steps:
+      - name: Check out repository under test
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Check out public governance metadata
+        if: github.repository != 'Albert-Maxwell/.github'
+        uses: actions/checkout@v4
+        with:
+          repository: Albert-Maxwell/.github
+          ref: main
+          path: .org-governance
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+
+      - name: Install registry parser
+        run: python -m pip install -r "$GOVERNANCE_ROOT/scripts/requirements-registry.txt"
+
+      - name: Discover repositories visible to this check
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          gh api --paginate \
+            "orgs/Albert-Maxwell/repos?type=all&per_page=100" \
+            --jq '.[].name' > "$RUNNER_TEMP/repositories.txt"
+
+      - name: Validate registry and lifecycle guard
+        env:
+          BASE_SHA: ${{ github.event.pull_request.base.sha || github.event.before }}
+        shell: bash
+        run: |
+          set -Eeuo pipefail
+          arguments=(
+            "$GOVERNANCE_ROOT/lifecycle/repositories.yaml"
+            --repository "${GITHUB_REPOSITORY#*/}"
+            --inventory "$RUNNER_TEMP/repositories.txt"
+            --inventory-scope discovered
+          )
+          if [[ -n ${BASE_SHA:-} && ! $BASE_SHA =~ ^0+$ ]] &&
+            git cat-file -e "$BASE_SHA^{commit}" 2>/dev/null; then
+            arguments+=(--base-ref "$BASE_SHA")
+          fi
+          "$GOVERNANCE_ROOT/scripts/check-lifecycle-registry.py" "${arguments[@]}"

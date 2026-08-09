@@ -1,0 +1,7 @@
+- id: albert-maxwell-gitleaks
+  name: Detect hardcoded secrets with the Albert-Maxwell policy
+  description: Run the pinned organization Gitleaks policy against staged changes.
+  entry: secret-scanning/run-gitleaks.sh staged
+  language: script
+  pass_filenames: false
+  stages: [pre-commit]

@@ -19,6 +19,12 @@ For a breaking cross-repository change, record owners and consumers, land and re
 
 Never delete, overwrite, normalize, or rewrite existing data unless the request explicitly authorizes it. Table and object retirement must use the owning numbered migration and retention workflow, with rollback or recovery evidence. Repository-specific rules for determinism, storage ownership, constitutions, and evidence override general cleanup preferences.
 
+## Keep branches and CI deliberate
+
+Start each topic on a fresh branch from the current remote default branch. One branch owns one topic: never stack unrelated work on it or reuse it after merge. Use an isolated worktree for long-running or parallel work so other checkouts and user changes remain untouched.
+
+Run the repository's exact local gates before pushing. Treat shared or paid CI, including CodeBuild, as verification rather than an interactive compile or lint loop. Batch changes into meaningful commits and target a few deliberate CI runs per pull request, normally one per substantive review round.
+
 ## Own the whole lifecycle
 
 Long-term architectural decisions are expected. An interim state is acceptable only when its owner, tracking issue, rollout, verification, and exact retirement condition are documented.

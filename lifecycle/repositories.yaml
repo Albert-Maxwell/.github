@@ -93,18 +93,18 @@ repositories:
       archive: []
 
   - repository: amt-visualize
-    lifecycle: retirement-candidate
+    lifecycle: archived
     owner: "@super-dainiu"
     backup_owner: "unknown — TODO(amt-visualize#2): nominate the migration/archive backup owner."
-    product_or_contract: "Legacy one-file Flask backtest visualization prototype."
+    product_or_contract: "Archived legacy one-file Flask backtest visualization prototype; retained as read-only history, not an active product."
     real_consumers:
       - "none — the 2026 organization review found no owned production consumer."
-    release_or_deployment_mechanism: "none supported — manual Flask development server only."
-    persisted_data_or_schema_owner: "none — the repository is a view/calculation prototype and must not become owner of upstream trading data."
+    release_or_deployment_mechanism: "none — GitHub reports the repository archived; it previously exposed only a manual Flask development server."
+    persisted_data_or_schema_owner: "none in the tracked repository — the prototype read external market/backtest caches and must not become their owner."
     critical_dependencies:
-      - "Upstream backtest/market data used by any views retained under #2."
+      - "Historical easy-quant.backtest and external market/cache inputs; no supported runtime dependency remains."
     last_validated: "2026-08-09"
-    retirement_condition_or_successor: "Preserve or migrate only demonstrably useful views/calculations to their product owner, verify no live deployment or unique data, then archive."
+    retirement_condition_or_successor: "Already archived; retain read-only history while #2 records the final no-successor or successor map and any analyst/browser/runbook confirmation."
     issues:
       cleanup: []
       release: []

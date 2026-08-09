@@ -412,8 +412,6 @@ def is_governance_path(value: str) -> bool:
     path = PurePosixPath(value)
     if path.is_absolute() or ".." in path.parts:
         return False
-    if path.as_posix() == ".immutable-dependencies/manifest.json":
-        return True
     if path.parts and path.parts[0] in {".github", "docs", "lifecycle"}:
         return True
     if len(path.parts) != 1:

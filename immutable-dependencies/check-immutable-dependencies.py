@@ -23,7 +23,7 @@ TARGET_ENVIRONMENTS = {"production", "release"}
 EXCLUSION_ENVIRONMENTS = {"development", "test"}
 SHA256 = re.compile(r"[0-9a-f]{64}\Z")
 COMMIT = re.compile(r"[0-9a-f]{40}\Z")
-USES = re.compile(r"^\s*uses:\s*([^\s#]+)", re.MULTILINE)
+USES = re.compile(r"^\s*(?:-\s*)?uses:\s*([^\s#]+)", re.MULTILINE)
 EDITABLE = re.compile(r"(?:^|\s)(?:-e|--editable)(?:\s|=|$)")
 PRIVATE_PACKAGES = {
     "easy-ci",
@@ -384,7 +384,7 @@ def scan_target(path: str, text: str) -> list[str]:
     if re.search(r"\bPYTHONPATH\s*=.*(?:\.\.|/|\$\{?GITHUB_WORKSPACE\}?/)", text):
         findings.append("sibling or absolute PYTHONPATH dependency is forbidden")
 
-    if re.search(r"\bgit\s+clone\b", text):
+    if re.search(r"\b(?:git\s+clone|gh\s+repo\s+clone)\b", text):
         findings.append(
             "git clone is unresolved; use a digest-bound artifact or exact source revision"
         )
@@ -392,6 +392,10 @@ def scan_target(path: str, text: str) -> list[str]:
         r"\bgit\s+(?:checkout|switch|fetch)\b[^\n]*(?:\bmain\b|\bmaster\b)", text
     ):
         findings.append("mutable Git branch is forbidden")
+    if re.search(r"\bgit\s+pull\b", text) or re.search(
+        r"\bgit\s+merge\b[^\n]*(?:@\{u\}|origin/(?:main|master)\b)", text
+    ):
+        findings.append("mutable Git tracking branch is forbidden")
     if re.search(
         r"github\.com/[^\s'\"]+/(?:archive/(?:refs/heads/)?|tarball/)(?:main|master)(?:[./'\"]|$)",
         text,
@@ -432,7 +436,7 @@ def scan_target(path: str, text: str) -> list[str]:
 
     for fragment in requirement_fragments(text, path):
         normalized = fragment.lower().replace("_", "-")
-        for package in PRIVATE_PACKAGES:
+        for package in sorted(PRIVATE_PACKAGES):
             if (
                 re.search(
                     rf"(?<![a-z0-9.-]){re.escape(package)}(?![a-z0-9.-])", normalized
@@ -448,9 +452,6 @@ def scan_target(path: str, text: str) -> list[str]:
                 findings.append(
                     f"private package {package!r} has no exact Git source revision"
                 )
-            break
-        if findings and findings[-1].startswith("private package"):
-            break
 
     return list(dict.fromkeys(findings))
 

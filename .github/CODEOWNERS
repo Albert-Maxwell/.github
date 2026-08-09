@@ -11,3 +11,8 @@
 
 # Repository lifecycle metadata
 /lifecycle/ @super-dainiu
+
+# Shared secret-scanning provider and generated policy
+/.github/workflows/secret-scan.yml @super-dainiu
+/.pre-commit-hooks.yaml @super-dainiu
+/secret-scanning/ @super-dainiu

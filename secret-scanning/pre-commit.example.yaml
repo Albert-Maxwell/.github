@@ -1,6 +1,0 @@
-# Replace the rev after the provider PR merges. Never use main or a moving tag.
-repos:
-  - repo: https://github.com/Albert-Maxwell/.github
-    rev: <provider-full-commit-sha>
-    hooks:
-      - id: albert-maxwell-gitleaks

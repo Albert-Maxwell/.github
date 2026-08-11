@@ -4,21 +4,29 @@ Organization members: review the [canonical engineering policy](https://github.c
 
 <!-- What happens today, who owns it, and what current evidence demonstrates the need? -->
 
-## Change and affected surface
+## Proposed change and affected surface
 
 <!-- Describe the smallest complete change. List affected code, data/schemas, interfaces, repositories, artifacts, deployments, and consumers. -->
 
-## Reuse and obsolete paths
+## Reuse decision
 
-<!-- What existing owner/library/dependency is reused? What duplicate, fallback, compatibility, or obsolete path is removed? Use `None — <reason>` when needed. -->
+<!-- What existing owner, maintained library, or current dependency is reused? If none applies, explain why. -->
+
+## Obsolete paths to delete
+
+<!-- Name old code, aliases, fallbacks, workflows, artifacts, or duplicate paths removed by this change and the deletion point. Use `None — <reason>` when needed. -->
 
 ## Dependency and rollout order
 
 <!-- For a cross-repository or breaking change: owner contract/release -> consumer migration and verification -> old-contract removal. Otherwise use `None — <reason>`. -->
 
-## Data safety, verification, and recovery
+## Data preservation and migration
 
-<!-- Explain preservation or migration of existing data, local/remote evidence, operational checks, and rollback or recovery. -->
+<!-- Explain how existing data is preserved, including the owning migration and recovery evidence for any authorized change. -->
+
+## Verification and recovery
+
+<!-- Give local/remote tests, operational evidence, success postconditions, and rollback or recovery steps. -->
 
 ## Interim-state retirement
 

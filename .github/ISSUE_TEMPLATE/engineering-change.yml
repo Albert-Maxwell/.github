@@ -15,19 +15,27 @@ body:
     validations:
       required: true
   - type: textarea
-    id: scope
+    id: change
     attributes:
-      label: Affected surface
-      description: List affected code, data or schemas, interfaces, repositories, artifacts, deployments, and consumers.
-      placeholder: Code, data, contracts, repositories, deployments, and consumers...
+      label: Proposed change and affected surface
+      description: Describe the smallest complete change and list affected code, interfaces, repositories, artifacts, deployments, and consumers.
+      placeholder: Proposed behavior and affected surfaces...
     validations:
       required: true
   - type: textarea
-    id: proposal
+    id: reuse
     attributes:
-      label: Proposed change, reuse, and cleanup
-      description: Explain the smallest complete change, what existing owner or dependency it reuses, and which obsolete paths it removes.
-      placeholder: Proposed change, reuse decision, and deletions; use None with a reason when needed...
+      label: Reuse decision
+      description: State which existing owner, maintained library, or current dependency is reused, or explain why none applies.
+      placeholder: Reused owner or dependency, with evidence; or None with a reason...
+    validations:
+      required: true
+  - type: textarea
+    id: obsolete
+    attributes:
+      label: Obsolete paths to delete
+      description: Name old code, aliases, fallbacks, workflows, artifacts, or duplicate paths this change removes and when.
+      placeholder: Paths and deletion point; or None with a reason...
     validations:
       required: true
   - type: textarea
@@ -39,11 +47,19 @@ body:
     validations:
       required: true
   - type: textarea
+    id: data
+    attributes:
+      label: Data preservation and migration
+      description: State how existing data is preserved, including the owning migration and recovery evidence for any authorized change.
+      placeholder: Preservation, migration, retention, and recovery evidence; or None with a reason...
+    validations:
+      required: true
+  - type: textarea
     id: verification
     attributes:
-      label: Data safety, verification, and recovery
-      description: State how existing data is preserved, which tests and operational evidence prove success, and how rollback or recovery works.
-      placeholder: Preservation, tests, evidence, and rollback or recovery...
+      label: Verification and recovery
+      description: Give tests, operational evidence, success postconditions, and rollback or recovery steps.
+      placeholder: Tests, evidence, postconditions, and rollback or recovery...
     validations:
       required: true
   - type: textarea

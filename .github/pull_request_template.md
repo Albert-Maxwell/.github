@@ -6,7 +6,7 @@ Organization members: review the [canonical engineering policy](https://github.c
 
 ## Proposed change and affected surface
 
-<!-- Describe the smallest complete change. List affected code, data/schemas, interfaces, repositories, artifacts, deployments, and consumers. -->
+<!-- Describe the smallest complete change. List affected code, data/schemas, contracts/interfaces, repositories, artifacts, deployments, and consumers. -->
 
 ## Reuse decision
 
@@ -24,9 +24,9 @@ Organization members: review the [canonical engineering policy](https://github.c
 
 <!-- Explain how existing data is preserved, including the owning migration and recovery evidence for any authorized change. -->
 
-## Verification and recovery
+## Rollout, verification, and recovery
 
-<!-- Give local/remote tests, operational evidence, success postconditions, and rollback or recovery steps. -->
+<!-- Give end-to-end rollout steps, consumer and deployment checks, local/remote tests, operational evidence, success postconditions, and rollback or recovery steps. -->
 
 ## Interim-state retirement
 

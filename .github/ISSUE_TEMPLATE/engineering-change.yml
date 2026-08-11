@@ -18,8 +18,8 @@ body:
     id: change
     attributes:
       label: Proposed change and affected surface
-      description: Describe the smallest complete change and list affected code, interfaces, repositories, artifacts, deployments, and consumers.
-      placeholder: Proposed behavior and affected surfaces...
+      description: Describe the smallest complete change and list affected code, data or schemas, contracts or interfaces, repositories, artifacts, deployments, and consumers.
+      placeholder: Proposed behavior; affected code, data or schemas, contracts, repositories, deployments, and consumers...
     validations:
       required: true
   - type: textarea
@@ -57,9 +57,9 @@ body:
   - type: textarea
     id: verification
     attributes:
-      label: Verification and recovery
-      description: Give tests, operational evidence, success postconditions, and rollback or recovery steps.
-      placeholder: Tests, evidence, postconditions, and rollback or recovery...
+      label: Rollout, verification, and recovery
+      description: Give end-to-end rollout steps, consumer and deployment checks, tests and operational evidence, success postconditions, and rollback or recovery steps.
+      placeholder: Rollout; consumer and deployment checks; tests, evidence, postconditions, and recovery...
     validations:
       required: true
   - type: textarea

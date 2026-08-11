@@ -45,8 +45,8 @@ jobs:
           assert all(path.is_file() and not path.is_symlink() for path in template_paths)
           approved_sha256 = {
               config_path: "1d943eb9d9de90156c6b4795c241fc86e73a55b945bfaa00caa6e65cf9f9a5b1",
-              issue_path: "14a47a7bdb008492824be0def36c5472355389135f895f53e3a7fe33d006d325",
-              pull_path: "67eae8113430b311234a3e8bda457d72082084872f36ae1b28f1b21dd9762403",
+              issue_path: "4b8e48baf8eb4619a9ac4c60b901128bbbd40f8be19382a879191b09292e181f",
+              pull_path: "7ad8373eb2030d6ce6290a12c70959428ced2db62b7f3c6f65d606ff12db3941",
           }
           for path, expected_digest in approved_sha256.items():
               actual_digest = hashlib.sha256(path.read_bytes()).hexdigest()
@@ -101,7 +101,7 @@ jobs:
             "## Obsolete paths to delete",
             "## Dependency and rollout order",
             "## Data preservation and migration",
-            "## Verification and recovery",
+            "## Rollout, verification, and recovery",
             "## Interim-state retirement",
             "## Review checklist",
           ]

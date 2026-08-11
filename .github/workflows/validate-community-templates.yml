@@ -1,0 +1,109 @@
+name: Validate community templates
+
+on:
+  pull_request:
+    paths:
+      - .github/ISSUE_TEMPLATE/**
+      - .github/pull_request_template.md
+      - .github/workflows/validate-community-templates.yml
+  push:
+    branches: [main]
+    paths:
+      - .github/ISSUE_TEMPLATE/**
+      - .github/pull_request_template.md
+      - .github/workflows/validate-community-templates.yml
+
+permissions:
+  contents: read
+
+jobs:
+  templates:
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    steps:
+      - uses: actions/checkout@d23441a48e516b6c34aea4fa41551a30e30af803 # v6.1.0
+        with:
+          persist-credentials: false
+      - name: Validate inherited template contract
+        shell: bash
+        run: |
+          python -I <<'PY'
+          import hashlib
+          import pathlib
+          import re
+
+          policy = "https://github.com/Albert-Maxwell/amt-meta/blob/main/ENGINEERING.md"
+          issue_dir = pathlib.Path(".github/ISSUE_TEMPLATE")
+          issue_path = pathlib.Path(".github/ISSUE_TEMPLATE/engineering-change.yml")
+          config_path = pathlib.Path(".github/ISSUE_TEMPLATE/config.yml")
+          pull_path = pathlib.Path(".github/pull_request_template.md")
+
+          expected_issue_entries = {config_path.as_posix(), issue_path.as_posix()}
+          actual_issue_entries = {path.as_posix() for path in issue_dir.rglob("*")}
+          assert actual_issue_entries == expected_issue_entries, "unexpected issue-template entry"
+          template_paths = (config_path, issue_path, pull_path)
+          assert all(path.is_file() and not path.is_symlink() for path in template_paths)
+          approved_sha256 = {
+              config_path: "1d943eb9d9de90156c6b4795c241fc86e73a55b945bfaa00caa6e65cf9f9a5b1",
+              issue_path: "4b8e48baf8eb4619a9ac4c60b901128bbbd40f8be19382a879191b09292e181f",
+              pull_path: "7ad8373eb2030d6ce6290a12c70959428ced2db62b7f3c6f65d606ff12db3941",
+          }
+          for path, expected_digest in approved_sha256.items():
+              actual_digest = hashlib.sha256(path.read_bytes()).hexdigest()
+              assert actual_digest == expected_digest, f"unreviewed template content: {path}"
+
+          config_text = config_path.read_text(encoding="utf-8")
+          assert config_text.startswith("blank_issues_enabled: false\ncontact_links:\n")
+
+          issue_text = issue_path.read_text(encoding="utf-8")
+          assert issue_text.startswith("name: Engineering change\ndescription: ")
+          assert "\ntitle: \"[change] \"\nbody:\n" in issue_text
+          expected_ids = [
+              "current",
+              "change",
+              "reuse",
+              "obsolete",
+              "dependency_order",
+              "data",
+              "verification",
+              "retirement",
+              "confirmation",
+          ]
+          ids = re.findall(r"^    id: ([a-z_]+)$", issue_text, flags=re.MULTILINE)
+          assert ids == expected_ids, "issue field contract changed"
+          blocks = issue_text.split("\n  - type: ")[1:]
+          assert [block.splitlines()[0] for block in blocks] == [
+              "markdown",
+              "textarea",
+              "textarea",
+              "textarea",
+              "textarea",
+              "textarea",
+              "textarea",
+              "textarea",
+              "textarea",
+              "checkboxes",
+          ], "issue field types changed"
+          for field_id in expected_ids[:-1]:
+              block = next(block for block in blocks if f"\n    id: {field_id}\n" in f"\n{block}\n")
+              assert "\n    validations:\n      required: true\n" in f"\n{block}\n", f"{field_id} must be required"
+          confirmation = blocks[-1]
+          assert confirmation.count("\n          required: true") == 2, "confirmation must be required"
+
+          pull_text = pull_path.read_text(encoding="utf-8")
+          for text in (config_text, issue_text, pull_text):
+              urls = re.findall(r"https://[^\s\])]+", text)
+              assert urls == [policy], "template link contract changed"
+          headings = [
+            "## Current behavior and owner",
+            "## Proposed change and affected surface",
+            "## Reuse decision",
+            "## Obsolete paths to delete",
+            "## Dependency and rollout order",
+            "## Data preservation and migration",
+            "## Rollout, verification, and recovery",
+            "## Interim-state retirement",
+            "## Review checklist",
+          ]
+          assert all(heading in pull_text for heading in headings), "pull request template headings changed"
+          PY

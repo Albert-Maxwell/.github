@@ -1,0 +1,5 @@
+blank_issues_enabled: false
+contact_links:
+  - name: Canonical engineering policy (organization members)
+    url: https://github.com/Albert-Maxwell/amt-meta/blob/main/ENGINEERING.md
+    about: Read the private organization-wide policy before proposing a change.

@@ -1,0 +1,65 @@
+name: Engineering change
+description: Propose a code, data, contract, release, migration, or retirement change.
+title: "[change] "
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Organization members should first read the [canonical engineering policy](https://github.com/Albert-Maxwell/amt-meta/blob/main/ENGINEERING.md). Repository-local instructions and owning contracts remain authoritative when they are more specific.
+  - type: textarea
+    id: current
+    attributes:
+      label: Current behavior and owner
+      description: Describe what happens today, who owns it, and the current evidence for the problem.
+      placeholder: Current behavior, owner, consumers, and evidence...
+    validations:
+      required: true
+  - type: textarea
+    id: scope
+    attributes:
+      label: Affected surface
+      description: List affected code, data or schemas, interfaces, repositories, artifacts, deployments, and consumers.
+      placeholder: Code, data, contracts, repositories, deployments, and consumers...
+    validations:
+      required: true
+  - type: textarea
+    id: proposal
+    attributes:
+      label: Proposed change, reuse, and cleanup
+      description: Explain the smallest complete change, what existing owner or dependency it reuses, and which obsolete paths it removes.
+      placeholder: Proposed change, reuse decision, and deletions; use None with a reason when needed...
+    validations:
+      required: true
+  - type: textarea
+    id: dependency_order
+    attributes:
+      label: Dependency and rollout order
+      description: For cross-repository or breaking changes, give the owner-first release, consumer migration, verification, and old-contract removal order.
+      placeholder: Ordered rollout, or None with a reason...
+    validations:
+      required: true
+  - type: textarea
+    id: verification
+    attributes:
+      label: Data safety, verification, and recovery
+      description: State how existing data is preserved, which tests and operational evidence prove success, and how rollback or recovery works.
+      placeholder: Preservation, tests, evidence, and rollback or recovery...
+    validations:
+      required: true
+  - type: textarea
+    id: retirement
+    attributes:
+      label: Interim-state retirement
+      description: Name the owner, tracking issue, and exact removal condition for every temporary path.
+      placeholder: Owner, tracking issue, and retirement condition; or None with a reason...
+    validations:
+      required: true
+  - type: checkboxes
+    id: confirmation
+    attributes:
+      label: Confirmation
+      options:
+        - label: I reconciled this proposal with the repository-specific instructions and owning contracts.
+          required: true
+        - label: Each rollout stage leaves a working, verifiable system.
+          required: true

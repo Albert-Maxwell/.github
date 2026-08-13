@@ -2,7 +2,7 @@
 
 # ALBERT MAXWELL TECHNOLOGIES
 
-**Revolutionizing Crypto Trading with AI-Driven Solutions**
+**Revolutionizing Quantitative Trading with AI-Driven Solutions**
 
 [![Website](https://img.shields.io/badge/Website-Visit%20Us-000000?style=for-the-badge&logo=google-chrome&logoColor=white)](https://albert-maxwell.github.io/)
 [![LinkedIn](https://img.shields.io/badge/LinkedIn-Follow%20Us-0A66C2?style=for-the-badge&logo=linkedin&logoColor=white)](https://www.linkedin.com/company/albert-maxwell-technologies)
@@ -14,7 +14,7 @@
 
 ## ✦ Core Vision
 
-**Albert Maxwell Technologies** is a cutting-edge proprietary trading firm at the forefront of the global crypto market. By bridging state-of-the-art artificial intelligence with sophisticated high-frequency trading (HFT) infrastructure, we consistently deliver unparalleled execution and alpha generation in the dynamic world of digital assets.
+**Albert Maxwell Technologies** is a cutting-edge proprietary trading firm at the forefront of the global finance market. By bridging state-of-the-art artificial intelligence with sophisticated high-frequency trading (HFT) infrastructure, we consistently deliver unparalleled execution and alpha generation in the dynamic world of digital assets.
 
 ---
 
